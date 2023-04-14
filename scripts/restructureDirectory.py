@@ -1,8 +1,8 @@
 import os
 import shutil
 
-country_position = 2  # The part of file-name which is country
-data_dir = "../data/testing/224x224"
+country_position = 1  # The part of file-name which is country
+data_dir = "../data/toBeAdded/1000x1000"
 country_classes = set()
 
 # get a set of all country classes
