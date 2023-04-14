@@ -90,4 +90,4 @@ es = EarlyStopping(patience=3, monitor='val_loss')
 complete_model.fit(train_dataset, epochs=10, validation_data=val_dataset, callbacks=[es])
 
 # Save the trained model
-complete_model.save('test.h5')
+complete_model.save('HittaBrittaMk2.h5')
