@@ -3,14 +3,14 @@ import numpy as np
 from PIL import Image
 
 # Set the path to the known error-image
-error_image_path = "/path/to/error-image.jpg"
+error_image_path = "../data/training/224x224/albania/17_albania_1000x1000.jpg"
 
 # Open the error-image and convert it to a numpy array
 with Image.open(error_image_path) as img:
     error_array = np.array(img)
 
 # Set the directory path
-dir_path = "/path/to/folder"
+dir_path = "../data/training/224x224"
 
 # Traverse all subdirectories within the directory
 for subdir, dirs, files in os.walk(dir_path):
@@ -29,4 +29,5 @@ for subdir, dirs, files in os.walk(dir_path):
             # Check if the pixel values are identical to the error-image
             if np.array_equal(img_array, error_array):
                 # If the pixel values are identical, delete the file
+                print("Removed ", filename)
                 os.remove(file_path)

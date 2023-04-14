@@ -2,7 +2,7 @@ import os
 from PIL import Image
 
 # Set the directory path
-dir_path = "../toBeResized"
+dir_path = "../data/training/224x224"
 
 # Set the target image size
 target_size = (224, 224)
