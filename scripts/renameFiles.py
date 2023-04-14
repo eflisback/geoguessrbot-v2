@@ -1,7 +1,7 @@
 import os
 
 # Set the base path for the directory containing the subdirectories
-base_path = "/path/to/directory"
+base_path = "../data/testing/224x224"
 
 # Loop through each subdirectory
 for subdir in os.listdir(base_path):

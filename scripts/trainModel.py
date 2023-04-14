@@ -37,7 +37,7 @@ complete_model = Sequential([base_model,
 
 complete_model.summary()
 
-data_dir = '../data/224x224'
+data_dir = '../data/training/224x224'
 BATCH_SIZE = 16
 SEED = 1
 

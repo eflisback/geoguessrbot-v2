@@ -5,10 +5,10 @@ import os
 
 # Load saved model
 model = load_model('../models/test.h5')
-data_dir = "../data/224x224"
+data_dir = "../data/testing/224x224"
 
 # Load new image in RGB mode
-new_image = tf.keras.preprocessing.image.load_img('../../data/testing_224x224/1000x1000/resized_5_austria_1000x1000.jpg',
+new_image = tf.keras.preprocessing.image.load_img('../data/testing/224x224/austria/2_austria_224x224.jpg',
                                                   target_size=(224, 224), color_mode='rgb')
 
 # Convert image to numpy array
