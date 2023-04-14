@@ -4,11 +4,11 @@ from keras.models import load_model
 import os
 
 # Load saved model
-model = load_model('../models/test.h5')
+model = load_model('../models/HittaBrittaMk1.h5')
 data_dir = "../data/testing/224x224"
 
 # Set image file path
-image_file_path = '../data/testing/224x224/austria/2_austria_224x224.jpg'
+image_file_path = '../data/testing/224x224/france/2_france_224x224.jpg'
 
 # Load new image in RGB mode
 new_image = tf.keras.preprocessing.image.load_img(image_file_path,
