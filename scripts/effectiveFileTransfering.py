@@ -18,7 +18,7 @@ def move_files(src_dir, dest_dir):
 
 def main():
     dir_a = '../data/toBeAdded/1000x1000'
-    dir_b = '../data/training/224x224'
+    dir_b = '../data/testing/224x224'
 
     for sub_dir_name in os.listdir(dir_a):
         src_sub_dir = os.path.join(dir_a, sub_dir_name)

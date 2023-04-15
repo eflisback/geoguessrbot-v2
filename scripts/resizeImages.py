@@ -18,8 +18,8 @@ for subdir in os.listdir(dir_path):
     # Loop through each file in the subdirectory
     for filename in os.listdir(subdir_path):
         # Skip files that start with "resized"
-        # if filename.startswith("resized"):
-        #     continue
+        if filename.startswith("resized"):
+            continue
 
         file_path = os.path.join(subdir_path, filename)
 
@@ -29,10 +29,10 @@ for subdir in os.listdir(dir_path):
 
         # Open the image file and resize it
         with Image.open(file_path) as img:
-            # img = img.resize(target_size)
+            img = img.resize(target_size)
 
             # Save the resized image
-            resized_path = os.path.join(subdir_path, "B_" + filename)
+            resized_path = os.path.join(subdir_path, "resized_B_" + filename)
             img.save(resized_path)
             print("Resized one image.")
             # Delete the original image file
