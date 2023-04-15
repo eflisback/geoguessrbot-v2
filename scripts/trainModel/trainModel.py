@@ -41,7 +41,7 @@ complete_model = Sequential([base_model,
 complete_model.summary()
 
 # Define data directory, batch size, and seed
-data_dir = '../../data/training/224x224'
+data_dir = '../../data/training/224x224_enhanced'
 BATCH_SIZE = 16
 SEED = 1
 
@@ -90,4 +90,4 @@ es = EarlyStopping(patience=3, monitor='val_loss')
 complete_model.fit(train_dataset, epochs=10, validation_data=val_dataset, callbacks=[es])
 
 # Save the trained model
-complete_model.save('HittaBrittaMk2.h5')
+complete_model.save('HittaBrittaMk3.h5')

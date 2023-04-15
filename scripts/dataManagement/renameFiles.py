@@ -1,7 +1,7 @@
 import os
 
 # Set the base path for the directory containing the subdirectories
-base_path = "../../data/testing/224x224"
+base_path = "../../data/training/224x224_enhanced"
 
 # Loop through each subdirectory
 for subdir in os.listdir(base_path):
@@ -23,7 +23,7 @@ for subdir in os.listdir(base_path):
             continue
 
         # Construct the new file name and rename the file
-        new_filename = "{}_{}_{}.jpg".format(file_number, subdir, "224x224")
+        new_filename = "{}_{}_{}.jpg".format(file_number, subdir, "224x224_balanced")
         new_file_path = os.path.join(subdir_path, new_filename)
         os.rename(file_path, new_file_path)
 

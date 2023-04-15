@@ -6,7 +6,7 @@ import csv
 
 # Set the models directory and data directory
 models_dir = "../../models/"
-data_dir = "../../data/training/224x224"
+data_dir = "../../data/training/224x224_balanced"
 testing_dir = "../../data/testing/224x224"
 
 # Get list of class names
@@ -28,7 +28,7 @@ for model_name in os.listdir(models_dir):
         csvwriter = csv.writer(csvfile)
 
         # Write the CSV header
-        csvwriter.writerow(["Image", "Correct_Class", "Confidence"])
+        csvwriter.writerow(["Image", "Correct_Class", "Confidence", "Top_Guess"])
 
         # Iterate over each class subdirectory in the testing directory
         for class_name in class_names:
@@ -58,30 +58,20 @@ for model_name in os.listdir(models_dir):
                 sorted_classes = [class_names[index] for index in np.argsort(probabilities)[::-1]]
                 sorted_probabilities = sorted(probabilities, reverse=True)
 
-                # Print the image file path and sorted list of classes and probabilities
-                print(f"Image: {image_file_path}")
-                for i in range(5):
-                    print(f"{sorted_classes[i]}: {sorted_probabilities[i] * 100:.2f}%")
-                print()
-
                 # Extract the correct answer from the file path
                 correct_answer = os.path.basename(os.path.dirname(image_file_path))
 
-                # Check if correct answer is in top 5 predictions
-                if correct_answer not in sorted_classes[:5]:
-                    # Find the rank and confidence of the correct answer
-                    correct_answer_index = sorted_classes.index(correct_answer)
-                    correct_answer_rank = correct_answer_index + 1
-                    correct_answer_confidence = sorted_probabilities[correct_answer_index]
+                # Determine if the correct answer is the top guess
+                top_guess = (correct_answer == sorted_classes[0])
 
-                    # Print the rank and confidence of the correct answer
-                    print(f"The right answer, {correct_answer.capitalize()}, came in {correct_answer_rank}th place with a confidence of {correct_answer_confidence * 100:.2f}%")
+                # Save the confidence level of the correct answer and whether it was the top guess to the CSV file
+                correct_answer_index = sorted_classes.index(correct_answer)
+                correct_answer_confidence = sorted_probabilities[correct_answer_index]
+                csvwriter.writerow([image_name, correct_answer, correct_answer_confidence, top_guess])
 
-                # Save the confidence level of the correct answer to the CSV file
-                else:
-                    correct_answer_index = sorted_classes.index(correct_answer)
-                    correct_answer_confidence = sorted_probabilities[correct_answer_index]
-
-                csvwriter.writerow([image_name, correct_answer, correct_answer_confidence])
-
+                # Print the image file path, sorted list of classes and probabilities, and if the correct answer was the top guess
+                print(f"Image: {image_file_path}")
+                for i in range(5):
+                    print(f"{sorted_classes[i]}: {sorted_probabilities[i] * 100:.2f}%")
+                print(f"Top Guess: {top_guess}\n")
                 print("\n" + "=" * 40 + "\n")

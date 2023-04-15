@@ -2,7 +2,7 @@ import os
 from PIL import Image
 
 # Set the directory path
-dir_path = "../data/toBeAdded/1000x1000"
+dir_path = "../../data/toBeAdded/1000x1000"
 
 # Set the target image size
 target_size = (224, 224)

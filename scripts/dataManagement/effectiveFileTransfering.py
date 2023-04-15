@@ -3,6 +3,7 @@ import shutil
 
 
 def move_files(src_dir, dest_dir):
+    print("Moved file")
     if not os.path.exists(dest_dir):
         os.makedirs(dest_dir)
 
@@ -17,8 +18,8 @@ def move_files(src_dir, dest_dir):
 
 
 def main():
-    dir_a = '../data/toBeAdded/1000x1000'
-    dir_b = '../../data/testing/224x224'
+    dir_a = '../../data/toBeAdded/1000x1000'
+    dir_b = '../../data/training/224x224_enhanced'
 
     for sub_dir_name in os.listdir(dir_a):
         src_sub_dir = os.path.join(dir_a, sub_dir_name)
@@ -26,7 +27,6 @@ def main():
 
         if os.path.isdir(src_sub_dir):
             move_files(src_sub_dir, dest_sub_dir)
-            print("Moved file")
 
 
 main()
