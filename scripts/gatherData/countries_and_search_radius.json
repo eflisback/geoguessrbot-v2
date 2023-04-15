@@ -1,0 +1,150 @@
+[
+  {
+    "name": "albania",
+    "radius": 12500
+  },
+  {
+    "name": "andorra",
+    "radius": 8000
+  },
+  {
+    "name": "austria",
+    "radius": 15000
+  },
+  {
+    "name": "belgium",
+    "radius": 3000
+  },
+  {
+    "name": "bulgaria",
+    "radius": 50000
+  },
+  {
+    "name": "croatia",
+    "radius": 10000
+  },
+  {
+    "name": "czechrepublic",
+    "radius": 10000
+  },
+  {
+    "name": "denmark",
+    "radius": 10000
+  },
+  {
+    "name": "estonia",
+    "radius": 25000
+  },
+  {
+    "name": "finland",
+    "radius": 20000
+  },
+  {
+    "name": "france",
+    "radius": 5000
+  },
+  {
+    "name": "germany",
+    "radius": 150000
+  },
+  {
+    "name": "greece",
+    "radius": 35000
+  },
+  {
+    "name": "hungary",
+    "radius": 15000
+  },
+  {
+    "name": "iceland",
+    "radius": 80000
+  },
+  {
+    "name": "italy",
+    "radius": 10000
+  },
+  {
+    "name": "latvia",
+    "radius": 20000
+  },
+  {
+    "name": "lithuania",
+    "radius": 20000
+  },
+  {
+    "name": "luxembourg",
+    "radius": 7000
+  },
+  {
+    "name": "malta",
+    "radius": 10000
+  },
+  {
+    "name": "montenegro",
+    "radius": 40000
+  },
+  {
+    "name": "netherlands",
+    "radius": 10000
+  },
+  {
+    "name": "northmacedonia",
+    "radius": 50000
+  },
+  {
+    "name": "norway",
+    "radius": 35000
+  },
+  {
+    "name": "poland",
+    "radius": 70000
+  },
+  {
+    "name": "portugal",
+    "radius": 100000
+  },
+  {
+    "name": "romania",
+    "radius": 200000
+  },
+  {
+    "name": "sanmarino",
+    "radius": 10000
+  },
+  {
+    "name": "serbia",
+    "radius": 50000
+  },
+  {
+    "name": "slovakia",
+    "radius": 15000
+  },
+  {
+    "name": "slovenia",
+    "radius": 15000
+  },
+  {
+    "name": "spain",
+    "radius": 50000
+  },
+  {
+    "name": "sweden",
+    "radius": 25000
+  },
+  {
+    "name": "switzerland",
+    "radius": 20000
+  },
+  {
+    "name": "turkey",
+    "radius": 150000
+  },
+  {
+    "name": "uk",
+    "radius": 75000
+  },
+  {
+    "name": "ukraine",
+    "radius": 250000
+  }
+]
