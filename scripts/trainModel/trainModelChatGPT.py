@@ -5,7 +5,10 @@ from keras.layers import *
 import tensorflow as tf
 from keras.optimizers import Adam
 from keras.losses import CategoricalCrossentropy
-from keras.callbacks import EarlyStopping
+from keras.callbacks import EarlyStopping, ReduceLROnPlateau, ModelCheckpoint
+
+# Data augmentation
+from keras.preprocessing.image import ImageDataGenerator
 
 # Check if GPU is available
 gpus = tf.config.list_physical_devices('GPU')
@@ -23,17 +26,20 @@ base_model = EfficientNetV2L(weights='imagenet',
                              include_top=False,
                              input_shape=(224, 224, 3))
 
-# Freeze the layers of the base model
-for layer in base_model.layers:
+# Unfreeze some layers of the base model
+for layer in base_model.layers[:-20]:
     layer.trainable = False
 
 # Build the complete model by adding custom layers to the base model
 complete_model = Sequential([base_model,
                              Conv2D(1024, 3, 1, activation='relu'),
+                             BatchNormalization(),
                              GlobalAveragePooling2D(),
                              Dense(1024, activation='relu'),
+                             BatchNormalization(),
                              Dropout(0.2),
                              Dense(1024, activation='relu'),
+                             BatchNormalization(),
                              Dropout(0.2),
                              Dense(37, activation='softmax')])
 
@@ -45,49 +51,62 @@ data_dir = '../../data/training/224x224_balanced'
 BATCH_SIZE = 24
 SEED = 1
 
+# Create data generator for data augmentation
+data_gen = ImageDataGenerator(
+    rotation_range=15,
+    width_shift_range=0.1,
+    height_shift_range=0.1,
+    zoom_range=0.1,
+    horizontal_flip=True,
+    validation_split=0.2
+)
+
 # Create training dataset
-train_dataset = keras.utils.image_dataset_from_directory(
+train_dataset = data_gen.flow_from_directory(
     data_dir,
     color_mode='rgb',
     batch_size=BATCH_SIZE,
-    image_size=(224, 224),
+    target_size=(224, 224),
     shuffle=True,
-    validation_split=0.2,
     subset='training',
     seed=SEED,
-    label_mode='categorical'
+    class_mode='categorical'
 )
 
 # Create validation dataset
-val_dataset = keras.utils.image_dataset_from_directory(
+val_dataset = data_gen.flow_from_directory(
     data_dir,
     color_mode='rgb',
     batch_size=BATCH_SIZE,
-    image_size=(224, 224),
+    target_size=(224, 224),
     shuffle=False,
-    validation_split=0.2,
     subset='validation',
     seed=SEED,
-    label_mode='categorical'
+    class_mode='categorical'
 )
-
-# Prefetch data for performance improvement
-train_dataset = train_dataset.prefetch(tf.data.AUTOTUNE)
-val_dataset = val_dataset.prefetch(tf.data.AUTOTUNE)
 
 # Define the metrics
 metrics = ['accuracy']
 
 # Compile the model
 complete_model.compile(loss=CategoricalCrossentropy(),
-                       optimizer=Adam(learning_rate=0.003),
+                       optimizer=Adam(learning_rate=0.001),
                        metrics=metrics)
 
 # Define early stopping callback
 es = EarlyStopping(patience=3, monitor='val_loss')
 
+# Define ReduceLROnPlateau callback
+reduce_lr = ReduceLROnPlateau(monitor='val_loss', factor=0.2, patience=2, min_lr=1e-6, verbose=1)
+
+# Define ModelCheckpoint callback
+model_checkpoint = ModelCheckpoint('best_model.h5', monitor='val_loss', save_best_only=True, verbose=1)
+
 # Train the model
-complete_model.fit(train_dataset, epochs=10, validation_data=val_dataset, callbacks=[es])
+complete_model.fit(train_dataset, epochs=10, validation_data=val_dataset, callbacks=[es, reduce_lr, model_checkpoint])
+
+# Load the best model weights
+complete_model.load_weights('best_model.h5')
 
 # Save the trained model
 complete_model.save('HittaBrittaMk4.h5')
