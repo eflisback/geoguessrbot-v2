@@ -5,7 +5,7 @@ import os
 import csv
 
 # Set the models directory and data directory
-models_dir = "../../models/"
+models_dir = "../../models/temp/"
 data_dir = "../../data/training/224x224_balanced"
 testing_dir = "../../data/testing/224x224"
 
