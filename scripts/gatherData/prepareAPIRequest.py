@@ -21,7 +21,7 @@ sizes = [50, 100, 200, 300, 400, 500]
 with open('./countries_and_search_radius.json', 'r') as f:
     country_search_radius = json.load(f)
 
-with open('./coordinates.json', 'r') as f:
+with open('../play/game1.json', 'r') as f:
     coordinates = json.load(f)
 
 print("Reading radius dictionary...")
