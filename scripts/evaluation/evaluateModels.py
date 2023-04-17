@@ -5,7 +5,7 @@ import os
 import csv
 
 # Set the models directory and data directory
-models_dir = "../../models/temp/"
+models_dir = "../../models/"
 data_dir = "../../data/training/224x224_balanced"
 testing_dir = "../../data/testing/224x224"
 
@@ -23,7 +23,7 @@ for model_name in os.listdir(models_dir):
     print(f"Model: {model_name}")
 
     # Create a CSV file to store the confidence levels of the correct answers for this model
-    csv_filename = f"correct_answers_confidence_{model_name.replace('.h5', '')}.csv"
+    csv_filename = f"performance_evaluation_{model_name.replace('.h5', '')}.csv"
     with open(csv_filename, "w", newline='') as csvfile:
         csvwriter = csv.writer(csvfile)
 

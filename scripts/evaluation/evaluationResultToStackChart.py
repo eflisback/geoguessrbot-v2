@@ -9,7 +9,7 @@ csv_dir = "../../evaluations/csv"
 
 # Iterate over all CSV files in the directory
 for csv_file in os.listdir(csv_dir):
-    if csv_file.endswith(".csv") and csv_file.startswith("correct_answers_confidence_"):
+    if csv_file.endswith(".csv") and csv_file.startswith("performance_evaluation_"):
         # Read the CSV file using Pandas
         df = pd.read_csv(os.path.join(csv_dir, csv_file))
 
@@ -35,7 +35,8 @@ for csv_file in os.listdir(csv_dir):
         plt.xticks(df_mean.index, df_mean['Correct_Class'], rotation=90)
         plt.xlabel('Correct Answer (Country)')
         plt.ylabel('Average Confidence Level of Correct Answer')
-        plt.title(f"Average Confidence Level for {csv_file.replace('.csv', '').replace('correct_answers_confidence_', '')}")
+        model_name = csv_file.replace('.csv', '').replace('performance_evaluation_', '')
+        plt.title(f"Performance evaluation: {model_name}")
         plt.ylim(0, 1)
         plt.grid(axis='y')
 
@@ -46,7 +47,7 @@ for csv_file in os.listdir(csv_dir):
         cbar.set_label('Percentage of Correct Top Guesses')
 
         # Save the plot as an image file
-        plt.savefig(f"{csv_file.replace('.csv', '')}_plot.png", bbox_inches='tight')
+        plt.savefig(f"performance_evaluation_{model_name}.png", bbox_inches='tight')
 
 # Show all plots
 plt.show()
