@@ -1,3 +1,5 @@
+# Training script for first fine-tuned based HittaBritta models, which reached about 45% accuracy in testing
+
 import keras.utils
 from keras.applications import EfficientNetV2L
 from keras.models import Sequential

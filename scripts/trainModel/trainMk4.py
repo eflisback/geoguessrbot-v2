@@ -1,4 +1,5 @@
-import keras.utils
+# Training script for the fourth HittaBritta model, which reached about 56% accuracy in testing
+
 from keras.applications import EfficientNetV2L
 from keras.models import Sequential
 from keras.layers import *
