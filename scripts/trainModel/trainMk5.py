@@ -108,7 +108,7 @@ model_checkpoint = ModelCheckpoint('./best_model.h5', monitor='val_loss', save_b
 complete_model.fit(train_dataset, epochs=50, validation_data=val_dataset, callbacks=[es, reduce_lr, model_checkpoint])
 
 # Load the best model weights
-complete_model.load_weights('./best_model.h5')
+complete_model.load_weights('best_model.h5')
 
 # Save the trained model
 complete_model.save('HittaBrittaMk5.h5')
