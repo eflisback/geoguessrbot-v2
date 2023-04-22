@@ -3,20 +3,15 @@ from generateRandomLatLng import random_points_within_country
 import geopandas as gpd
 import json
 import time
+from bcolors import BColors
+
+# This script generates random coordinates within multiple countries
+# and saves the coordinates to a JSON file.
+
+# Class for defining console text colors and styles.
 
 
-class BColors:
-    HEADER = '\033[95m'
-    OKBLUE = '\033[94m'
-    OKCYAN = '\033[96m'
-    OKGREEN = '\033[92m'
-    WARNING = '\033[93m'
-    FAIL = '\033[91m'
-    ENDC = '\033[0m'
-    BOLD = '\033[1m'
-    UNDERLINE = '\033[4m'
-
-
+# Function to generate a list of random coordinates for a country
 def get_coordinate_list(c, c_s, n):
     print(f"{BColors.OKBLUE}Getting {n} random locations in {str(c).upper()}.{BColors.ENDC}")
     start_time = time.time()
@@ -29,12 +24,14 @@ def get_coordinate_list(c, c_s, n):
     return lat_lng_arr.tolist()
 
 
+# Function to save coordinates data to a JSON file
 def save_coordinates_to_json(data, filename="coordinates.json"):
     with open(filename, 'w') as outfile:
         json.dump(data, outfile)
     print(f"{BColors.OKGREEN}{BColors.BOLD}Coordinates saved to {filename}{BColors.ENDC}")
 
 
+# Function to load country shapefiles into a dictionary
 def load_countries_shapefiles(countries_list):
     country_shapes_temp = {}
     print(f"{BColors.WARNING}Preparing to load shape files...{BColors.ENDC}")
@@ -47,7 +44,7 @@ def load_countries_shapefiles(countries_list):
     return country_shapes_temp
 
 
-# Replace path with country-radius file
+# Read country-radius data from JSON file
 with open('./countries_and_search_radius.json', 'r') as f:
     country_search_radius = json.load(f)
 
@@ -58,8 +55,10 @@ all_coordinates = {}
 runtime_start = time.time()
 number_of_locations = 1
 
+# Load country shapefiles into a dictionary
 country_shapes = load_countries_shapefiles(countries)
 
+# Generate random coordinates within each country's boundaries
 for targetCountry in countries:
     country_shape = country_shapes[targetCountry]
     radius = next((c['radius'] for c in country_search_radius if c['name'] == targetCountry), None)

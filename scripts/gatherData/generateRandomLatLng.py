@@ -1,21 +1,8 @@
 from shapely import MultiPoint
 import numpy as np
 
-
 # This script generates random points within a specified country's boundary
 # using the Shapely library to handle geometric operations.
-
-# Class for defining console text colors and styles.
-class BColors:
-    HEADER = '\033[95m'
-    OKBLUE = '\033[94m'
-    OKCYAN = '\033[96m'
-    OKGREEN = '\033[92m'
-    WARNING = '\033[93m'
-    FAIL = '\033[91m'
-    ENDC = '\033[0m'
-    BOLD = '\033[1m'
-    UNDERLINE = '\033[4m'
 
 
 # Function to generate random points within the boundary of a given country
