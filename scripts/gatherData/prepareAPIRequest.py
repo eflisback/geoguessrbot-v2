@@ -1,11 +1,12 @@
+"""
+This script downloads Google Street View images for multiple countries using a list of coordinates and the Google Maps
+Street View API.
+"""
+
 import os
 import json
 import random
-
 from dotenv import load_dotenv
-
-# This script downloads Google Street View images for multiple countries
-# using a list of coordinates and the Google Maps Street View API.
 
 # Files
 import downloadImages

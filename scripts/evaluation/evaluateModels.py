@@ -1,3 +1,10 @@
+"""
+This script evaluates the performance of multiple saved models on a test dataset. It loads each model, iterates through
+images in the test dataset, and generates predictions for each image. For every image, it calculates the confidence
+level of the correct answer and whether the correct answer was the top guess. The script stores this information in a
+CSV file for each model and prints the details for each image, including the sorted list of classes and probabilities.
+"""
+
 import tensorflow as tf
 import numpy as np
 from keras.models import load_model

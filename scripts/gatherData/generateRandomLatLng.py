@@ -1,14 +1,13 @@
+"""
+This script generates random points within a specified country's boundary using the Shapely library to handle geometric
+operations.
+"""
+
 from shapely import MultiPoint
 import numpy as np
 
-# This script generates random points within a specified country's boundary
-# using the Shapely library to handle geometric operations.
-
 
 # Function to generate random points within the boundary of a given country
-# Inputs:
-#   country: Shapely geometry object representing the country's boundary
-#   n: number of random points to generate
 def random_points_within_country(country, n):
     # Get the bounding box of the country
     min_x, min_y, max_x, max_y = country.bounds

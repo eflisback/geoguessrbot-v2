@@ -1,3 +1,9 @@
+"""
+This script identifies and removes images identical to a specified error-image from a given directory and its
+subdirectories. It converts both the error-image and each encountered image to numpy arrays and checks if their pixel
+values are identical. If they match, the script deletes the matching image.
+"""
+
 import os
 import numpy as np
 from PIL import Image

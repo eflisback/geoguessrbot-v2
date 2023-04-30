@@ -1,7 +1,13 @@
+"""
+This script generates bar plots to visualize the performance of models based on CSV files. It calculates the average
+confidence level and percentage of correct top guesses for each class, using a custom color gradient to represent the
+correctness. The script generates and saves bar plots with average confidence levels and correct answers as axes, and
+includes a colorbar to indicate the percentage of correct top guesses.
+"""
+
 import pandas as pd
 import matplotlib.pyplot as plt
 import os
-import numpy as np
 import matplotlib.colors as mcolors
 
 # Set the directory where the CSV files are located

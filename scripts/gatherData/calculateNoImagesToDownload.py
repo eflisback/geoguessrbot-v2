@@ -1,9 +1,11 @@
+"""
+This script reads a CSV file containing confidence values for correct answers, calculates the mean confidence per
+country, and allocates a number of images to download based on the inverse confidence value. Data later used for
+training HittaBrittaMk3.
+"""
+
 import pandas as pd
 import json
-
-# This script reads a CSV file containing confidence values for correct answers,
-# calculates the mean confidence per country, and allocates a number of images
-# to download based on the inverse confidence value.
 
 data = pd.read_csv("../../evaluations/csv/correct_answers_confidence_HittaBrittaMk2.csv")
 

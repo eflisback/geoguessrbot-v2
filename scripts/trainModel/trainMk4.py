@@ -1,4 +1,9 @@
-# Training script for the fourth HittaBritta model, which reached about 56% accuracy in testing
+"""
+Training script for fourth model
+
+This model reached ~56% accuracy. Introducing technologies such as data augmentation, early stopping callbacks and
+weight checkpoints. Also unfroze more layers from the base model, EfficientNetV2L.
+"""
 
 from keras.applications import EfficientNetV2L
 from keras.models import Sequential

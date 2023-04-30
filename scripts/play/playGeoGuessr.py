@@ -1,3 +1,11 @@
+"""
+Play GeoGuessr with trained model
+
+This script downloads and displays Google Street View images based on the user's input of latitude, longitude,
+and heading. It then uses a trained model to predict the country the image is from and displays the top three
+guesses along with their probabilities.
+"""
+
 import os
 import requests
 from io import BytesIO
@@ -11,13 +19,14 @@ import matplotlib.pyplot as plt
 load_dotenv(dotenv_path='../../.env')
 api_key = os.getenv('STREET_VIEW_API_KEY')
 
-# Load the model
+# Load the pre-trained model
 model_path = '../../models/HittaBrittaMk4.h5'
 model = tf.keras.models.load_model(model_path)
 
 # Get country class names from the training data directory
 training_data_dir = '../../data/training/224x224_balanced'
-class_names = [dir_name for dir_name in os.listdir(training_data_dir) if os.path.isdir(os.path.join(training_data_dir, dir_name))]
+class_names = [dir_name for dir_name in os.listdir(training_data_dir) if
+               os.path.isdir(os.path.join(training_data_dir, dir_name))]
 
 # Parameters for Street View API
 size = "1000x1000"
@@ -32,18 +41,23 @@ if not os.path.exists(game_images_folder):
     os.makedirs(game_images_folder)
 
 
-# Prediction function
+# Function to predict the country based on the image data
 def predict_country(image_data):
+    # Preprocess the image data
     image = Image.open(BytesIO(image_data)).resize((224, 224))
     image_array = np.array(image).reshape((1,) + image.size[::-1] + (3,))
+
+    # Make the prediction
     prediction = model.predict(image_array)
     probabilities = list(prediction[0])
     sorted_indexes = np.argsort(probabilities)[::-1]
+
+    # Get top three predictions
     top_three = [(class_names[index], probabilities[index]) for index in sorted_indexes[:3]]
     return top_three
 
 
-# Game loop
+# Main game loop
 for i in range(5):
     lat, lon, heading = input("Enter latitude, longitude, and heading separated by commas. \n").split(',')
 
@@ -53,7 +67,7 @@ for i in range(5):
     response = requests.get(url)
 
     # Save the image in gameImages folder
-    image_path = os.path.join(game_images_folder, f'image_{i+1}.jpg')
+    image_path = os.path.join(game_images_folder, f'image_{i + 1}.jpg')
     with open(image_path, 'wb') as f:
         f.write(response.content)
 

@@ -1,4 +1,9 @@
-# Training script for HittaBritta model 5, which hasn't yet been trained
+"""
+Training script for fifth model (unfinished)
+
+This model hasn't yet been trained due to a few bugs in my script which I haven't yet solved. This script introduces
+new technologies such as reducing learning rate on plateaus. The data augmentation has also been improved.
+"""
 
 from keras.applications import EfficientNetB3
 from keras.models import Sequential

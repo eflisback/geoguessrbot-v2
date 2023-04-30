@@ -1,3 +1,9 @@
+"""
+This script renames image files within subdirectories of a specified base directory. It iterates through each
+subdirectory, and for each JPEG file, constructs a new filename based on a counter, the subdirectory name, and a
+pre-defined suffix. The script then renames the file with the new filename and increments the counter for the next file.
+"""
+
 import os
 
 # Set the base path for the directory containing the subdirectories

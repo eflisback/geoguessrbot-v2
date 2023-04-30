@@ -1,10 +1,12 @@
+"""
+This script downloads images of different sizes from a given URL, resizes them, and saves them to separate folders
+based on their size.
+"""
+
 import os
 import requests
 from PIL import Image
 from bcolors import BColors
-
-# This script downloads images of different sizes from a given URL,
-# resizes them, and saves them to separate folders based on their size.
 
 
 def download_images(i, country, u, sizes):

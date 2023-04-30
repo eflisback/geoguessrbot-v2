@@ -1,11 +1,13 @@
+"""
+This script generates random coordinates within multiple countries,
+loads the countries' shapefiles, and saves the coordinates to a single JSON file.
+"""
+
 from generateRandomLatLng import random_points_within_country
 import geopandas as gpd
 import json
 import time
 from bcolors import BColors
-
-# This script generates random coordinates within multiple countries,
-# loads the countries' shapefiles, and saves the coordinates to a single JSON file.
 
 
 def get_coordinate_list(c, c_s, n):

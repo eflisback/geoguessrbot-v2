@@ -1,3 +1,9 @@
+"""
+This script resizes images within subdirectories of a specified directory to a target size.
+It iterates through each subdirectory and image file, resizes the image, and saves the resized version with a new name.
+The script then deletes the original image file.
+"""
+
 import os
 from PIL import Image
 

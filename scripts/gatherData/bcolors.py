@@ -1,4 +1,4 @@
-# bcolors.py
+# Class definition for BColors
 
 class BColors:
     HEADER = '\033[95m'

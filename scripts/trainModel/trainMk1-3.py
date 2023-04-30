@@ -1,4 +1,10 @@
-# Training script for first fine-tuned based HittaBritta models, which reached about 45% accuracy in testing
+"""
+Training script for the first models
+
+What differentiates mark 1, 2 and 3 is the training data. Mk. 1 was trained using a dataset of 1100 images per country,
+while Mk. 2 had approximately 1600 per country. Mk. 3 had a dataset in which I added more data for those countries that
+previously were hard for the model to predict. See charts in ../../evaluations/stackchart.
+"""
 
 import keras.utils
 from keras.applications import EfficientNetV2L
