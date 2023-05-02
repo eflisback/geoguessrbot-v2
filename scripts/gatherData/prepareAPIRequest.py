@@ -28,7 +28,7 @@ with open('./countries_and_search_radius.json', 'r') as f:
     country_search_radius = json.load(f)
 
 # Load coordinates data from JSON file
-with open('../play/game1.json', 'r') as f:
+with open('./coordinates.json', 'r') as f:
     coordinates = json.load(f)
 
 print("Reading radius dictionary...")
