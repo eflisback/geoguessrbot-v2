@@ -47,7 +47,7 @@ def create_grid(num_cells_x):
 
 
 # Create the grid
-grid = create_grid(10)
+grid = create_grid(13)
 
 # Write the grid to a JSON file
 with open("grid.json", "w") as f:
