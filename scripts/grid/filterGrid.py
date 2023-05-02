@@ -2,7 +2,7 @@ import json
 import shutil
 
 # Define the list of cells to exclude
-exclude_cells = ["A0", "B0-B7", "F2-H4"]
+exclude_cells = ["A0-B5", "A7-M7", "D5-E6", "C5-C6", "F0-G0", "C2-D2", "F1", "F6", "E0", "M0-M6"]
 
 # Load the grid data from the JSON file
 with open("grid.json", "r") as f:
