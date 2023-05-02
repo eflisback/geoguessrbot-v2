@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Grid Example</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  </head>
+  <body>
+    <div id="map" style="height: 500px;"></div>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+      // Load the grid data from the JSON file
+      fetch("grid.json")
+        .then(response => response.json())
+        .then(grid => {
+          // Initialize the map
+          var map = L.map("map").setView([55, 10], 5);
+
+          // Add a tile layer to the map
+          L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            attribution: "Map data &copy; <a href='https://www.openstreetmap.org/'>OpenStreetMap</a> contributors",
+            maxZoom: 18,
+          }).addTo(map);
+
+          // Add the grid cells as polygons to the map
+          for (var name in grid) {
+            var cell = grid[name];
+            var polygon = L.polygon([
+              [cell.max_lat, cell.max_lon],
+              [cell.max_lat, cell.min_lon],
+              [cell.min_lat, cell.min_lon],
+              [cell.min_lat, cell.max_lon],
+            ], {
+              color: "red",
+              fillOpacity: 0.2,
+            }).addTo(map);
+            polygon.bindTooltip(name);
+          }
+        });
+    </script>
+  </body>
+</html>
