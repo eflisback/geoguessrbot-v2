@@ -37,6 +37,6 @@ for cell in coordinates:
             &pitch={pitch}&fov={fov}&radius=300000&source={source}&key={api_key} "
 
         # Download and save images for the current coordinate
-        downloadImages.download_images(index, cell, url, size)
+        downloadImages.download_images(cell, url, size, "../../data/grid")
 
     print("\n")
