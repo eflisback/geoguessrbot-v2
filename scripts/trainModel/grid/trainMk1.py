@@ -1,11 +1,4 @@
-"""
-Training script for fifth model (unfinished)
-
-This model hasn't yet been trained due to a few bugs in my script which I haven't yet solved. This script introduces
-new technologies such as reducing learning rate on plateaus. The data augmentation has also been improved.
-"""
-
-from keras.applications import EfficientNetB3
+from keras.applications import EfficientNetV2L
 from keras.models import Sequential
 from keras.layers import *
 import tensorflow as tf
@@ -27,43 +20,42 @@ if gpus:
     except RuntimeError as e:
         print(e)
 
-# Load the EfficientNetB3 base model with ImageNet weights, without the top layers
-base_model = EfficientNetB3(weights='imagenet',
-                            include_top=False,
-                            input_shape=(224, 224, 3))
+# Load the EfficientNetV2L base model with ImageNet weights, without the top layers
+base_model = EfficientNetV2L(weights='imagenet',
+                             include_top=False,
+                             input_shape=(224, 224, 3))
 
 # Unfreeze some layers of the base model
-for layer in base_model.layers[:-30]:
+for layer in base_model.layers[:-20]:
     layer.trainable = False
 
 # Build the complete model by adding custom layers to the base model
 complete_model = Sequential([base_model,
-                             Conv2D(1024, 3, 1, activation='relu', kernel_regularizer=tf.keras.regularizers.l2(0.001)),
+                             Conv2D(1024, 3, 1, activation='relu'),
                              BatchNormalization(),
                              GlobalAveragePooling2D(),
-                             Dense(1024, activation='relu', kernel_regularizer=tf.keras.regularizers.l2(0.001)),
+                             Dense(1024, activation='relu'),
                              BatchNormalization(),
-                             Dropout(0.5),
-                             Dense(1024, activation='relu', kernel_regularizer=tf.keras.regularizers.l2(0.001)),
+                             Dropout(0.2),
+                             Dense(1024, activation='relu'),
                              BatchNormalization(),
-                             Dropout(0.5),
-                             Dense(37, activation='softmax')])
+                             Dropout(0.2),
+                             Dense(59, activation='softmax')])
 
 # Print the model summary
 complete_model.summary()
 
 # Define data directory, batch size, and seed
-data_dir = '../../data/training/224x224_balanced'
-BATCH_SIZE = 32
+data_dir = '../../../data/grid/training'
+BATCH_SIZE = 24
 SEED = 1
 
 # Create data generator for data augmentation
 data_gen = ImageDataGenerator(
-    rotation_range=20,
-    width_shift_range=0.2,
-    height_shift_range=0.2,
-    shear_range=0.2,
-    zoom_range=0.2,
+    rotation_range=15,
+    width_shift_range=0.1,
+    height_shift_range=0.1,
+    zoom_range=0.1,
     horizontal_flip=True,
     validation_split=0.2
 )
@@ -97,24 +89,23 @@ metrics = ['accuracy']
 
 # Compile the model
 complete_model.compile(loss=CategoricalCrossentropy(),
-                       optimizer=Adam(learning_rate=1e-4),
+                       optimizer=Adam(learning_rate=0.001),
                        metrics=metrics)
 
 # Define early stopping callback
-es = EarlyStopping(patience=5, monitor='val_loss')
+es = EarlyStopping(patience=3, monitor='val_loss')
 
 # Define ReduceLROnPlateau callback
-reduce_lr = ReduceLROnPlateau(monitor='val_loss', factor=0.2, patience=3, min_lr=1e-6, verbose=1)
+reduce_lr = ReduceLROnPlateau(monitor='val_loss', factor=0.2, patience=2, min_lr=1e-6, verbose=1)
 
 # Define ModelCheckpoint callback
-model_checkpoint = ModelCheckpoint('./best_model.h5', monitor='val_loss', save_best_only=True, verbose=1)
+model_checkpoint = ModelCheckpoint('../../models/best_model.h5', monitor='val_loss', save_best_only=True, verbose=1)
 
 # Train the model
-complete_model.fit(train_dataset, epochs=50, validation_data=val_dataset, callbacks=[es, reduce_lr, model_checkpoint])
+complete_model.fit(train_dataset, epochs=30, validation_data=val_dataset, callbacks=[es, reduce_lr, model_checkpoint])
 
 # Load the best model weights
 complete_model.load_weights('best_model.h5')
 
 # Save the trained model
-complete_model.save('HittaBrittaMk5.h5')
-
+complete_model.save('GriddaBriddaMk1.h5')

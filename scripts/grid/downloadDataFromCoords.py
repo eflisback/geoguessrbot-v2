@@ -15,7 +15,7 @@ import downloadImages
 load_dotenv()
 
 # Set request standard parameters
-api_key = os.getenv('STREET_VIEW_API_KEY')
+api_key = os.getenv('STREET_VIEW_API_KEY_EBBE')
 size = "224x224"
 pitch = 0
 fov = 120

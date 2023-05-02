@@ -2,7 +2,7 @@ import json
 import random
 
 # Define the number of coordinates to generate in each cell
-num_coords = 2
+num_coords = 200
 
 # Load the grid data from the JSON file
 with open("filtered_grid.json", "r") as f:
@@ -11,6 +11,7 @@ with open("filtered_grid.json", "r") as f:
 # Generate random coordinates for each cell
 cell_coords = {}
 for cell_name, cell_data in grid.items():
+    print(f"Generating {num_coords} for {cell_name}")
     coords = []
     for i in range(num_coords):
         lat = random.uniform(cell_data["min_lat"], cell_data["max_lat"])

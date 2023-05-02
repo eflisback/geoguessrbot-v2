@@ -1,20 +1,19 @@
 """
-Training script for fourth model
+Training script for the first models
 
-This model reached ~56% accuracy. Introducing technologies such as data augmentation, early stopping callbacks and
-weight checkpoints. Also unfroze more layers from the base model, EfficientNetV2L.
+What differentiates mark 1, 2 and 3 is the training data. Mk. 1 was trained using a dataset of 1100 images per country,
+while Mk. 2 had approximately 1600 per country. Mk. 3 had a dataset in which I added more data for those countries that
+previously were hard for the model to predict. See charts in ../../evaluations/stackchart.
 """
 
+import keras.utils
 from keras.applications import EfficientNetV2L
 from keras.models import Sequential
 from keras.layers import *
 import tensorflow as tf
 from keras.optimizers import Adam
 from keras.losses import CategoricalCrossentropy
-from keras.callbacks import EarlyStopping, ReduceLROnPlateau, ModelCheckpoint
-
-# Data augmentation
-from keras.preprocessing.image import ImageDataGenerator
+from keras.callbacks import EarlyStopping
 
 # Check if GPU is available
 gpus = tf.config.list_physical_devices('GPU')
@@ -32,20 +31,17 @@ base_model = EfficientNetV2L(weights='imagenet',
                              include_top=False,
                              input_shape=(224, 224, 3))
 
-# Unfreeze some layers of the base model
-for layer in base_model.layers[:-20]:
+# Freeze the layers of the base model
+for layer in base_model.layers:
     layer.trainable = False
 
 # Build the complete model by adding custom layers to the base model
 complete_model = Sequential([base_model,
                              Conv2D(1024, 3, 1, activation='relu'),
-                             BatchNormalization(),
                              GlobalAveragePooling2D(),
                              Dense(1024, activation='relu'),
-                             BatchNormalization(),
                              Dropout(0.2),
                              Dense(1024, activation='relu'),
-                             BatchNormalization(),
                              Dropout(0.2),
                              Dense(37, activation='softmax')])
 
@@ -53,66 +49,53 @@ complete_model = Sequential([base_model,
 complete_model.summary()
 
 # Define data directory, batch size, and seed
-data_dir = '../../data/training/224x224_balanced'
+data_dir = '../../../data/training/224x224_balanced'
 BATCH_SIZE = 24
 SEED = 1
 
-# Create data generator for data augmentation
-data_gen = ImageDataGenerator(
-    rotation_range=15,
-    width_shift_range=0.1,
-    height_shift_range=0.1,
-    zoom_range=0.1,
-    horizontal_flip=True,
-    validation_split=0.2
-)
-
 # Create training dataset
-train_dataset = data_gen.flow_from_directory(
+train_dataset = keras.utils.image_dataset_from_directory(
     data_dir,
     color_mode='rgb',
     batch_size=BATCH_SIZE,
-    target_size=(224, 224),
+    image_size=(224, 224),
     shuffle=True,
+    validation_split=0.2,
     subset='training',
     seed=SEED,
-    class_mode='categorical'
+    label_mode='categorical'
 )
 
 # Create validation dataset
-val_dataset = data_gen.flow_from_directory(
+val_dataset = keras.utils.image_dataset_from_directory(
     data_dir,
     color_mode='rgb',
     batch_size=BATCH_SIZE,
-    target_size=(224, 224),
+    image_size=(224, 224),
     shuffle=False,
+    validation_split=0.2,
     subset='validation',
     seed=SEED,
-    class_mode='categorical'
+    label_mode='categorical'
 )
+
+# Prefetch data for performance improvement
+train_dataset = train_dataset.prefetch(tf.data.AUTOTUNE)
+val_dataset = val_dataset.prefetch(tf.data.AUTOTUNE)
 
 # Define the metrics
 metrics = ['accuracy']
 
 # Compile the model
 complete_model.compile(loss=CategoricalCrossentropy(),
-                       optimizer=Adam(learning_rate=0.001),
+                       optimizer=Adam(learning_rate=0.003),
                        metrics=metrics)
 
 # Define early stopping callback
 es = EarlyStopping(patience=3, monitor='val_loss')
 
-# Define ReduceLROnPlateau callback
-reduce_lr = ReduceLROnPlateau(monitor='val_loss', factor=0.2, patience=2, min_lr=1e-6, verbose=1)
-
-# Define ModelCheckpoint callback
-model_checkpoint = ModelCheckpoint('../../models/best_model.h5', monitor='val_loss', save_best_only=True, verbose=1)
-
 # Train the model
-complete_model.fit(train_dataset, epochs=10, validation_data=val_dataset, callbacks=[es, reduce_lr, model_checkpoint])
-
-# Load the best model weights
-complete_model.load_weights('best_model.h5')
+complete_model.fit(train_dataset, epochs=10, validation_data=val_dataset, callbacks=[es])
 
 # Save the trained model
 complete_model.save('HittaBrittaMk4.h5')
