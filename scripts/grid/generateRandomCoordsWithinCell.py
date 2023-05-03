@@ -2,7 +2,7 @@ import json
 import random
 
 # Define the number of coordinates to generate in each cell
-num_coords = 200
+num_coords = 10
 
 # Load the grid data from the JSON file
 with open("filtered_grid.json", "r") as f:

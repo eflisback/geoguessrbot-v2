@@ -9,14 +9,14 @@ import numpy as np
 from PIL import Image
 
 # Set the path to the known error-image
-error_image_path = "../../data/toBeAdded/1000x1000/albania/16_albania_1000x1000.jpg"
+error_image_path = "../../data/grid/training/B6/22_B6_224x224.jpg"
 
 # Open the error-image and convert it to a numpy array
 with Image.open(error_image_path) as img:
     error_array = np.array(img)
 
 # Set the directory path
-dir_path = "../../data/toBeAdded/1000x1000"
+dir_path = "../../data/grid/training"
 
 # Traverse all subdirectories within the directory
 for subdir, dirs, files in os.walk(dir_path):

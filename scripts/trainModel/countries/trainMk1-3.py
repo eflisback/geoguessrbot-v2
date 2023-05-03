@@ -49,7 +49,7 @@ complete_model = Sequential([base_model,
 complete_model.summary()
 
 # Define data directory, batch size, and seed
-data_dir = '../../../data/training/224x224_balanced'
+data_dir = '../../../data/countries/training/224x224_balanced'
 BATCH_SIZE = 24
 SEED = 1
 

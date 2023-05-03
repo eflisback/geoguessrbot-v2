@@ -7,7 +7,7 @@ pre-defined suffix. The script then renames the file with the new filename and i
 import os
 
 # Set the base path for the directory containing the subdirectories
-base_path = "../../data/training/224x224_enhanced"
+base_path = "../../data/grid/training"
 
 # Loop through each subdirectory
 for subdir in os.listdir(base_path):
@@ -29,7 +29,7 @@ for subdir in os.listdir(base_path):
             continue
 
         # Construct the new file name and rename the file
-        new_filename = "{}_{}_{}.jpg".format(file_number, subdir, "224x224_balanced")
+        new_filename = "{}_{}_{}.jpg".format(file_number, subdir, "224x224R")
         new_file_path = os.path.join(subdir_path, new_filename)
         os.rename(file_path, new_file_path)
 

@@ -16,15 +16,15 @@ from dotenv import load_dotenv
 import matplotlib.pyplot as plt
 
 # Load API key from .env file
-load_dotenv(dotenv_path='../../.env')
+load_dotenv(dotenv_path='../../../.env')
 api_key = os.getenv('STREET_VIEW_API_KEY')
 
 # Load the pre-trained model
-model_path = '../../models/HittaBrittaMk4.h5'
+model_path = '../../../models/countries/HittaBrittaMk4.h5'
 model = tf.keras.models.load_model(model_path)
 
 # Get country class names from the training data directory
-training_data_dir = '../../data/training/224x224_balanced'
+training_data_dir = '../../../data/countries/training/224x224_balanced'
 class_names = [dir_name for dir_name in os.listdir(training_data_dir) if
                os.path.isdir(os.path.join(training_data_dir, dir_name))]
 

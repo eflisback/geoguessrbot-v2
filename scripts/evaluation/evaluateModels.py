@@ -12,9 +12,9 @@ import os
 import csv
 
 # Set the models directory and data directory
-models_dir = "../../models/"
-data_dir = "../../data/training/224x224_balanced"
-testing_dir = "../../data/testing/224x224"
+models_dir = "../../models/grid"
+data_dir = "../../data/grid/training"
+testing_dir = "../../data/grid/testing"
 
 # Get list of class names
 class_names = sorted(os.listdir(data_dir))

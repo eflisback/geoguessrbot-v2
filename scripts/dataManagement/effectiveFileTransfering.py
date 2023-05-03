@@ -28,7 +28,7 @@ def move_files(src_dir, dest_dir):
 
 def main():
     dir_a = '../../data/toBeAdded/1000x1000'
-    dir_b = '../../data/training/224x224_enhanced'
+    dir_b = '../../data/countries/training/224x224_enhanced'
 
     # Loop through subdirectories in the source directory
     for sub_dir_name in os.listdir(dir_a):
