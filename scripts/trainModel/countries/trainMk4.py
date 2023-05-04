@@ -47,7 +47,7 @@ complete_model = Sequential([base_model,
                              Dense(1024, activation='relu'),
                              BatchNormalization(),
                              Dropout(0.2),
-                             Dense(37, activation='softmax')])
+                             Dense(38, activation='softmax')])
 
 # Print the model summary
 complete_model.summary()
@@ -106,7 +106,7 @@ es = EarlyStopping(patience=3, monitor='val_loss')
 reduce_lr = ReduceLROnPlateau(monitor='val_loss', factor=0.2, patience=2, min_lr=1e-6, verbose=1)
 
 # Define ModelCheckpoint callback
-model_checkpoint = ModelCheckpoint('../../models/best_model.h5', monitor='val_loss', save_best_only=True, verbose=1)
+model_checkpoint = ModelCheckpoint('best_model.h5', monitor='val_loss', save_best_only=True, verbose=1)
 
 # Train the model
 complete_model.fit(train_dataset, epochs=10, validation_data=val_dataset, callbacks=[es, reduce_lr, model_checkpoint])
@@ -115,4 +115,4 @@ complete_model.fit(train_dataset, epochs=10, validation_data=val_dataset, callba
 complete_model.load_weights('best_model.h5')
 
 # Save the trained model
-complete_model.save('HittaBrittaMk4.h5')
+complete_model.save('HittaBrittaMk4E.h5')
