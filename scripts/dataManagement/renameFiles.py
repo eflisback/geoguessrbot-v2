@@ -7,7 +7,7 @@ pre-defined suffix. The script then renames the file with the new filename and i
 import os
 
 # Set the base path for the directory containing the subdirectories
-base_path = "../../data/grid/training"
+base_path = "../../data/countries/training/224x224_balanced"
 
 # Loop through each subdirectory
 for subdir in os.listdir(base_path):

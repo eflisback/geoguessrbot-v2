@@ -33,7 +33,7 @@ base_model = EfficientNetB3(weights='imagenet',
                             input_shape=(224, 224, 3))
 
 # Unfreeze some layers of the base model
-for layer in base_model.layers[:-30]:
+for layer in base_model.layers[:-10]:
     layer.trainable = False
 
 # Build the complete model by adding custom layers to the base model
@@ -54,7 +54,7 @@ complete_model.summary()
 
 # Define data directory, batch size, and seed
 data_dir = '../../../data/countries/training/224x224_balanced'
-BATCH_SIZE = 32
+BATCH_SIZE = 8
 SEED = 1
 
 # Create data generator for data augmentation
@@ -104,13 +104,13 @@ complete_model.compile(loss=CategoricalCrossentropy(),
 es = EarlyStopping(patience=5, monitor='val_loss')
 
 # Define ReduceLROnPlateau callback
-reduce_lr = ReduceLROnPlateau(monitor='val_loss', factor=0.2, patience=3, min_lr=1e-6, verbose=1)
+# reduce_lr = ReduceLROnPlateau(monitor='val_loss', factor=0.2, patience=3, min_lr=1e-6, verbose=1)
 
 # Define ModelCheckpoint callback
 model_checkpoint = ModelCheckpoint('./best_model.h5', monitor='val_loss', save_best_only=True, verbose=1)
 
 # Train the model
-complete_model.fit(train_dataset, epochs=50, validation_data=val_dataset, callbacks=[es, reduce_lr, model_checkpoint])
+complete_model.fit(train_dataset, epochs=50, validation_data=val_dataset, callbacks=[es, model_checkpoint])
 
 # Load the best model weights
 complete_model.load_weights('best_model.h5')

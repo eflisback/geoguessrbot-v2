@@ -146,5 +146,9 @@
   {
     "name": "ukraine",
     "radius": 250000
+  },
+  {
+    "name": "ireland",
+    "radius": 75000
   }
 ]

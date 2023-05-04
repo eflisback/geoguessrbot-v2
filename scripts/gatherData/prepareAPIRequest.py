@@ -9,14 +9,14 @@ import random
 from dotenv import load_dotenv
 
 # Files
-import downloadImages
+import downloadImages2
 
 # Load environment variables from .env file
 load_dotenv()
 
 # Set request standard parameters
 api_key = os.getenv('STREET_VIEW_API_KEY')
-size = "1000x1000"
+size = "224x224"
 pitch = 0
 fov = 120
 source = "outdoor"
@@ -45,4 +45,4 @@ for country in coordinates:
             &pitch={pitch}&fov={fov}&radius={radius}&source={source}&key={api_key} "
 
         # Download and save images for the current coordinate
-        downloadImages.download_images(index, country, url, sizes)
+        downloadImages2.download_images(country, url, size, '../../data/countries/training/224x224_balanced')

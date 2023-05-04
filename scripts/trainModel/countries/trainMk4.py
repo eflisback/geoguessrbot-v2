@@ -33,7 +33,7 @@ base_model = EfficientNetV2L(weights='imagenet',
                              input_shape=(224, 224, 3))
 
 # Unfreeze some layers of the base model
-for layer in base_model.layers[:-20]:
+for layer in base_model.layers[:-30]:
     layer.trainable = False
 
 # Build the complete model by adding custom layers to the base model
@@ -54,7 +54,7 @@ complete_model.summary()
 
 # Define data directory, batch size, and seed
 data_dir = '../../../data/countries/training/224x224_balanced'
-BATCH_SIZE = 24
+BATCH_SIZE = 16
 SEED = 1
 
 # Create data generator for data augmentation

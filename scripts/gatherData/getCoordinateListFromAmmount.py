@@ -52,7 +52,7 @@ countries = [c['name'] for c in country_search_radius]
 all_coordinates = {}
 
 runtime_start = time.time()
-number_of_locations = 1
+number_of_locations = 260
 
 # Load country shapefiles into a dictionary
 country_shapes = load_countries_shapefiles(countries)
