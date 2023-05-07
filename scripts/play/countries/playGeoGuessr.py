@@ -20,7 +20,7 @@ load_dotenv(dotenv_path='../../../.env')
 api_key = os.getenv('STREET_VIEW_API_KEY')
 
 # Load the pre-trained model
-model_path = '../../../models/countries/HittaBrittaMk4.h5'
+model_path = '../../../models/countries/irelandIncluded/HittaBrittaMk4E.h5'
 model = tf.keras.models.load_model(model_path)
 
 # Get country class names from the training data directory

@@ -16,7 +16,7 @@ def download_images(cell, url, size, base_dir):
     image_data = response.content
 
     # Save image to file
-    filename = f"{index_start}_{cell}_{size}R.jpg"
+    filename = f"{index_start}_{cell}_{size}.jpg"
     filepath = os.path.join(base_dir, cell, filename)
     with open(filepath, "wb") as f:
         f.write(image_data)

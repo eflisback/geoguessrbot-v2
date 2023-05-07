@@ -44,7 +44,7 @@ def load_countries_shapefiles(countries_list):
 
 
 # Read country-radius data from JSON file
-with open('./countries_and_search_radius.json', 'r') as f:
+with open('./ireland.json', 'r') as f:
     country_search_radius = json.load(f)
 
 countries = [c['name'] for c in country_search_radius]
@@ -52,7 +52,7 @@ countries = [c['name'] for c in country_search_radius]
 all_coordinates = {}
 
 runtime_start = time.time()
-number_of_locations = 260
+number_of_locations = 10
 
 # Load country shapefiles into a dictionary
 country_shapes = load_countries_shapefiles(countries)

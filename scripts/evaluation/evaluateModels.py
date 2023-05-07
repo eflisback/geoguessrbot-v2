@@ -12,9 +12,9 @@ import os
 import csv
 
 # Set the models directory and data directory
-models_dir = "../../models/grid"
-data_dir = "../../data/grid/training"
-testing_dir = "../../data/grid/testing"
+models_dir = "../../models/countries/irelandIncluded"
+data_dir = "../../data/countries/training/224x224_balanced"
+testing_dir = "../../data/countries/testing/224x224"
 
 # Get list of class names
 class_names = sorted(os.listdir(data_dir))
@@ -76,7 +76,8 @@ for model_name in os.listdir(models_dir):
                 correct_answer_confidence = sorted_probabilities[correct_answer_index]
                 csvwriter.writerow([image_name, correct_answer, correct_answer_confidence, top_guess])
 
-                # Print the image file path, sorted list of classes and probabilities, and if the correct answer was the top guess
+                # Print the image file path, sorted list of classes and probabilities,
+                # and if the correct answer was the top guess
                 print(f"Image: {image_file_path}")
                 for i in range(5):
                     print(f"{sorted_classes[i]}: {sorted_probabilities[i] * 100:.2f}%")
