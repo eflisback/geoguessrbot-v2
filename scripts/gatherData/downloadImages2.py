@@ -22,4 +22,4 @@ def download_images(cell, url, size, base_dir):
         f.write(image_data)
 
     # Print progress message
-    print(f"Downloaded image {index_start} for cell {cell}.")
+    print(f"Downloaded image {index_start} for area: {cell}.")

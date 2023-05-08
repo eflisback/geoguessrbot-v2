@@ -15,7 +15,7 @@ import downloadImages2
 load_dotenv()
 
 # Set request standard parameters
-api_key = os.getenv('STREET_VIEW_API_KEY_EBBE')
+api_key = os.getenv('STREET_VIEW_API_KEY')
 size = "224x224"
 pitch = 0
 fov = 120
@@ -24,7 +24,7 @@ index = 0
 sizes = [50, 100, 200, 300, 400, 500]
 
 # Load country-radius data from JSON file
-with open('./ireland.json', 'r') as f:
+with open('./countries_and_search_radius.json', 'r') as f:
     country_search_radius = json.load(f)
 
 # Load coordinates data from JSON file
@@ -45,4 +45,4 @@ for country in coordinates:
             &pitch={pitch}&fov={fov}&radius={radius}&source={source}&key={api_key} "
 
         # Download and save images for the current coordinate
-        downloadImages2.download_images(country, url, size, '../../data/countries/testing/224x224')
+        downloadImages2.download_images(country, url, size, '../../data/countries/training/224x224_balanced')

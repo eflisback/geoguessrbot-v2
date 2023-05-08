@@ -32,6 +32,6 @@ for subdir in os.listdir(base_path):
         new_filename = "{}_{}_{}.jpg".format(file_number, subdir, "224x224")
         new_file_path = os.path.join(subdir_path, new_filename)
         os.rename(file_path, new_file_path)
-
+        print("Renamed yes.", filename)
         # Increment the file number for the next file
         file_number += 1
